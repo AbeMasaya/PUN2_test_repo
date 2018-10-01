@@ -45,8 +45,8 @@ public class manage : MonoBehaviour {
                 PhotonNetwork.JoinRandomRoom();
                 keyLock = true;
                 Debug.Log("ルームに入室しました。");
-            //} else {
-            //    Debug.Log("接続に失敗しました。");
+            } else {
+                Debug.Log("接続に失敗しました。");
             }
         }
     }
