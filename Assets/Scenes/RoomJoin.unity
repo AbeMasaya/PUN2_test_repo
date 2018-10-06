@@ -254,12 +254,53 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 258878801}
   m_CullTransparentMesh: 0
---- !u!114 &328835335 stripped
+--- !u!1 &328835334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1456229493696160, guid: e99bf217eecf84c178d1a687303ff0ec,
+    type: 2}
+  m_PrefabInternal: {fileID: 965678071}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 328835336}
+  - component: {fileID: 328835335}
+  m_Layer: 0
+  m_Name: manage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &328835335
 MonoBehaviour:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 114574953408262616, guid: e99bf217eecf84c178d1a687303ff0ec,
     type: 2}
   m_PrefabInternal: {fileID: 965678071}
+  m_GameObject: {fileID: 328835334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b97b4a2d47e9344e2bb7d9dba3b30366, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyLock: 0
+  maxPlayersPerRoom: 4
+  controlPanel: {fileID: 1436506055}
+  progressLabel: {fileID: 1098236541}
+--- !u!4 &328835336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 4701680777904220, guid: e99bf217eecf84c178d1a687303ff0ec,
+    type: 2}
+  m_PrefabInternal: {fileID: 965678071}
+  m_GameObject: {fileID: 328835334}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &404154210
 GameObject:
   m_ObjectHideFlags: 0

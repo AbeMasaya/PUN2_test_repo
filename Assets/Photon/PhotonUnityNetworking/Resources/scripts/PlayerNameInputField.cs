@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PlayerNameInputField.cs" company="Exit Games GmbH">
+//   Part of: Photon Unity Networking Demos
+// </copyright>
+// <summary>
+//  Let the player input his name to be saved as the network player Name, viewed by alls players above each  when in the same room. 
+// </summary>
+// <author>developer@exitgames.com</author>
+// --------------------------------------------------------------------------------------------------------------------
+
+using UnityEngine;
 using UnityEngine.UI;
 
-
-using Photon.Pun;
-using Photon.Realtime;
-
-
-using System.Collections;
-
-
-namespace Com.MyCompany.MyGame {
+namespace Photon.Pun.Demo.PunBasics {
     /// <summary>
     /// Player name input field. Let the user input his name, will appear above the player in the game.
     /// </summary>
@@ -17,32 +19,21 @@ namespace Com.MyCompany.MyGame {
     public class PlayerNameInputField : MonoBehaviour {
         #region Private Constants
 
-
         // Store the PlayerPref Key to avoid typos
         const string playerNamePrefKey = "PlayerName";
 
-
         #endregion
 
-
         #region MonoBehaviour CallBacks
-
-        [Tooltip("The Ui Panel to let the user enter name, connect and play")]
-        [SerializeField]
-        private GameObject controlPanel;
-        [Tooltip("The UI Label to inform the user that the connection is in progress")]
-        [SerializeField]
-        private GameObject progressLabel;
-
 
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during initialization phase.
         /// </summary>
         void Start() {
 
-
             string defaultName = string.Empty;
             InputField _inputField = this.GetComponent<InputField>();
+
             if (_inputField != null) {
                 if (PlayerPrefs.HasKey(playerNamePrefKey)) {
                     defaultName = PlayerPrefs.GetString(playerNamePrefKey);
@@ -50,16 +41,12 @@ namespace Com.MyCompany.MyGame {
                 }
             }
 
-
             PhotonNetwork.NickName = defaultName;
         }
 
-
         #endregion
 
-
         #region Public Methods
-
 
         /// <summary>
         /// Sets the name of the player, and save it in the PlayerPrefs for future sessions.
@@ -73,10 +60,8 @@ namespace Com.MyCompany.MyGame {
             }
             PhotonNetwork.NickName = value;
 
-
             PlayerPrefs.SetString(playerNamePrefKey, value);
         }
-
 
         #endregion
     }
