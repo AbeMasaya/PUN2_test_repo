@@ -5,10 +5,11 @@ using Photon.Pun;
 using Photon.Realtime;
 
 namespace Com.MyCompany.MyGame {
-    public class manage : MonoBehaviourPunCallbacks {
+    public class Launcher : MonoBehaviourPunCallbacks {
 
         private string gameVersion = "1";
         public bool keyLock;
+        private bool isConnect;
 
         [Tooltip("The maximum number of players per room. When a room is full, it can't be joined by new players, and so new room will be created")]
         [SerializeField]
@@ -49,6 +50,7 @@ namespace Com.MyCompany.MyGame {
         }
 
         public void Connect() {
+            isConnect = true;
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
             if (PhotonNetwork.IsConnected) {
@@ -77,7 +79,9 @@ namespace Com.MyCompany.MyGame {
         public override void OnConnectedToMaster() {
             Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
             // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
-            PhotonNetwork.JoinRandomRoom();
+            if (isConnect) {
+                PhotonNetwork.JoinRandomRoom();
+            }
         }
 
 
@@ -95,6 +99,15 @@ namespace Com.MyCompany.MyGame {
 
         public override void OnJoinedRoom() {
             Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+            // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 1) {
+                Debug.Log("We load the 'Room for 1' ");
+
+
+                // #Critical
+                // Load the Room Level.
+                PhotonNetwork.LoadLevel("Room for 1");
+            }
         }
     }
 }

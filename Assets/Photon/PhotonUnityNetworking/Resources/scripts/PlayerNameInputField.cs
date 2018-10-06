@@ -10,8 +10,9 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-namespace Photon.Pun.Demo.PunBasics {
+namespace Com.MyCompany.MyGame {
     /// <summary>
     /// Player name input field. Let the user input his name, will appear above the player in the game.
     /// </summary>
