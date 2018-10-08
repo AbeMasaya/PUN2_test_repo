@@ -13,6 +13,17 @@ using Photon.Realtime;
 namespace Com.MyCompany.MyGame {
     public class GameManager : MonoBehaviourPunCallbacks {
 
+        #region public Fields
+
+        public static GameManager Instance;
+
+        #endregion
+
+
+
+        void Start() {
+            Instance = this;
+        }
 
         #region Photon Callbacks
 
