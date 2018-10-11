@@ -30,6 +30,17 @@ namespace Com.MyCompany.MyGame {
 
         #endregion
 
+        #region Public Fields
+
+        [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
+        public static GameObject LocalPlayerInstance;
+
+        [Tooltip("The Player's UI GameObject Prefab")]
+        [SerializeField]
+        public GameObject PlayerUiPrefab;
+
+        #endregion
+
 
         #region Private Fields
 
@@ -58,6 +69,15 @@ namespace Com.MyCompany.MyGame {
             {
                 beams.SetActive(false);
             }
+
+            // #Important
+            // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
+            if (photonView.IsMine) {
+                PlayerManager.LocalPlayerInstance = this.gameObject;
+            }
+            // #Critical
+            // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
+            DontDestroyOnLoad(this.gameObject);
         }
 
         /// <summary>
@@ -74,13 +94,27 @@ namespace Com.MyCompany.MyGame {
             } else {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
             }
+
+            #if UNITY_5_4_OR_NEWER
+            // Unity 5.4 has a new scene management. register a method to call CalledOnLevelWasLoaded.
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, loadingMode) => {
+                this.CalledOnLevelWasLoaded(scene.buildIndex);
+            };
+            #endif
+
+            if (PlayerUiPrefab != null) {
+                GameObject _uiGo = Instantiate(PlayerUiPrefab);
+                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            } else {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+            }
         }
 
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity on every frame.
         /// </summary>
-        void Update()
-        {
+        void Update(){
+            Debug.Log(photonView.IsMine);
             if (photonView.IsMine) {
                 ProcessInputs();
             }
@@ -131,6 +165,26 @@ namespace Com.MyCompany.MyGame {
             Health -= 0.1f * Time.deltaTime;
         }
 
+        #if !UNITY_5_4_OR_NEWER
+        /// <summary>See CalledOnLevelWasLoaded. Outdated in Unity 5.4.</summary>
+        void OnLevelWasLoaded(int level)
+        {
+            this.CalledOnLevelWasLoaded(level);
+        }
+        #endif
+
+
+        void CalledOnLevelWasLoaded(int level) {
+            // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
+            if (!Physics.Raycast(transform.position, -Vector3.up, 5f)) {
+                transform.position = new Vector3(0f, 5f, 0f);
+            }
+
+            GameObject _uiGo = Instantiate(this.PlayerUiPrefab);
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+
+        }
+
         #endregion
 
         #region Custom
@@ -138,19 +192,14 @@ namespace Com.MyCompany.MyGame {
         /// <summary>
         /// Processes the inputs. Maintain a flag representing when the user is pressing Fire.
         /// </summary>
-        void ProcessInputs()
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (!IsFiring)
-                {
+        void ProcessInputs(){
+            if (Input.GetButtonDown("Fire1")){
+                if (!IsFiring){
                     IsFiring = true;
                 }
             }
-            if (Input.GetButtonUp("Fire1"))
-            {
-                if (IsFiring)
-                {
+            if (Input.GetButtonUp("Fire1")){
+                if (IsFiring){
                     IsFiring = false;
                 }
             }

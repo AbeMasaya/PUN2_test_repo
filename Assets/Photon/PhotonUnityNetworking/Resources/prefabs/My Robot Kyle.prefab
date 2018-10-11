@@ -474,8 +474,11 @@ GameObject:
   - component: {fileID: 95517352129280380}
   - component: {fileID: 143490728213251416}
   - component: {fileID: 114533660000952596}
-  - component: {fileID: 114643419654468638}
+  - component: {fileID: 114244060534389166}
+  - component: {fileID: 114027925299552980}
+  - component: {fileID: 114454326926363818}
   - component: {fileID: 114087889519564336}
+  - component: {fileID: 114992559558337500}
   m_Layer: 0
   m_Name: My Robot Kyle
   m_TagString: Untagged
@@ -1727,6 +1730,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114027925299552980
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636104574175068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!114 &114087889519564336
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1738,7 +1755,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e653addd4cee14405acf726c80518f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerUiPrefab: {fileID: 1729456541488288, guid: 978838d89834e47098061da84ae35ef2,
+    type: 2}
+  Health: 1
   beams: {fileID: 1013578586569090}
+--- !u!114 &114244060534389166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636104574175068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 114027925299552980}
+  - {fileID: 114454326926363818}
+  - {fileID: 114087889519564336}
+  viewIdField: 0
+  InstantiationId: 1
+  isRuntimeInstantiated: 0
+--- !u!114 &114454326926363818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1636104574175068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 0
+    Name: Speed
+  - Type: 1
+    SynchronizeType: 0
+    Name: Direction
+  - Type: 4
+    SynchronizeType: 0
+    Name: Jump
+  - Type: 4
+    SynchronizeType: 0
+    Name: Hi
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+  - SynchronizeType: 0
+    LayerIndex: 1
 --- !u!114 &114533660000952596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1752,7 +1826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   directionDampTime: 0.25
---- !u!114 &114643419654468638
+--- !u!114 &114992559558337500
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1760,13 +1834,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1636104574175068}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd08475b23aa548b7b9d28397d430b32, type: 3}
+  m_Script: {fileID: 11500000, guid: 406b417bce7464f0da466f6907d9fefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 7
   height: 3
   heightSmoothLag: 0.3
-  centerOffset: {x: 0, y: 4, z: 0}
+  centerOffset: {x: 0, y: 1, z: 0}
   followOnStart: 1
 --- !u!137 &137143592482998616
 SkinnedMeshRenderer:

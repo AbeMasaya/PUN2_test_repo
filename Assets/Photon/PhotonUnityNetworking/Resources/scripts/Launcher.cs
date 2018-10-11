@@ -31,24 +31,6 @@ namespace Com.MyCompany.MyGame {
             controlPanel.SetActive(true);
         }
 
-        private void FixedUpdate() {
-            if (Input.GetKeyDown(KeyCode.A)) {
-                Debug.Log("ルーム入室確認");
-                if (PhotonNetwork.InRoom) {
-                    Debug.Log("ルームに入室している");
-                } else {
-                    Debug.Log("ルームに入室していません");
-                }
-            }
-            if (Input.GetMouseButtonDown(0)) {
-                GameObject mySyncObj = PhotonNetwork.Instantiate("Cube", new Vector3(9.0f, 0f, 0f), Quaternion.identity, 0);
-                Rigidbody mySyncObjRB = mySyncObj.GetComponent<Rigidbody>();
-                mySyncObjRB.isKinematic = false;
-                float rndPow = Random.Range(1.0f, 5.0f);
-                mySyncObjRB.AddForce(Vector3.left * rndPow, ForceMode.Impulse);
-            }
-        }
-
         public void Connect() {
             isConnect = true;
             progressLabel.SetActive(true);
@@ -106,7 +88,7 @@ namespace Com.MyCompany.MyGame {
 
                 // #Critical
                 // Load the Room Level.
-                PhotonNetwork.LoadLevel("Room for 1");
+                PhotonNetwork.LoadLevel("Kyle Test");
             }
         }
     }
